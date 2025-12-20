@@ -17,7 +17,7 @@
           "type": "object",
           "properties": {
             "command": {
-              "$ref": "./muddler-common.json#/$defs/nodeBase",
+              "$ref": "./muddler-common.json#/$defs/commandString",
               "description": "Command text (optional convenience alongside script)."
             },
             "time": {
