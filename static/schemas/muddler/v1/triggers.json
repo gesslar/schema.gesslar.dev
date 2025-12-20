@@ -39,7 +39,7 @@
     "trigger": {
       "allOf": [
         {
-          "$ref": "./muddler-common.json#/$defs/nodeBase"
+          "$ref": "./common.json#/$defs/nodeBase"
         },
         {
           "type": "object",
@@ -59,26 +59,26 @@
           }
         },
         "multiline": {
-          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "$ref": "./common.json#/$defs/yesNo",
           "description": "Treat as multiline trigger.",
           "default": "no"
         },
         "multilineDelta": {
-          "$ref": "./muddler-common.json#/$defs/positiveIntOrDigitsString",
+          "$ref": "./common.json#/$defs/positiveIntOrDigitsString",
           "description": "Number of lines after the first match to keep open when multiline=yes."
         },
         "matchall": {
-          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "$ref": "./common.json#/$defs/yesNo",
           "description": "Perl /g style matching.",
           "default": "no"
         },
         "filter": {
-          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "$ref": "./common.json#/$defs/yesNo",
           "description": "Mark as filter trigger.",
           "default": "no"
         },
         "fireLength": {
-          "$ref": "./muddler-common.json#/$defs/positiveIntOrDigitsString",
+          "$ref": "./common.json#/$defs/positiveIntOrDigitsString",
           "description": "Stay-open duration in milliseconds.",
           "default": "0"
         },
@@ -87,15 +87,15 @@
           "description": "Sound file to play on fire (enables sound trigger)."
         },
         "highlight": {
-          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "$ref": "./common.json#/$defs/yesNo",
           "description": "Enable colorizer trigger.",
           "default": "no"
         },
         "highlightFG": {
-          "$ref": "./muddler-common.json#/$defs/hexColor"
+          "$ref": "./common.json#/$defs/hexColor"
         },
         "highlightBG": {
-          "$ref": "./muddler-common.json#/$defs/hexColor"
+          "$ref": "./common.json#/$defs/hexColor"
         },
         "command": {
           "type": "string",

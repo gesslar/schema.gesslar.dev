@@ -11,7 +11,7 @@
     "key": {
       "allOf": [
         {
-          "$ref": "./muddler-common.json#/$defs/nodeBase"
+          "$ref": "./common.json#/$defs/nodeBase"
         },
         {
           "type": "object",
@@ -23,7 +23,7 @@
               "description": "Yes if this is a folder, no otherwise."
             },
             "command": {
-              "$ref": "./muddler-common.json#/$defs/commandString",
+              "$ref": "./common.json#/$defs/commandString",
               "description": "Command text (optional convenience alongside script)."
             },
             "keys": {

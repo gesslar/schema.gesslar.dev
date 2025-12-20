@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.gesslar.dev/muddler/v1/muddler-common.json",
+  "$id": "https://schema.gesslar.dev/muddler/v1/common.json",
   "title": "Muddler Common Definitions Schema",
   "description": "Shared definitions reused by Muddler JSON schemas.",
   "$defs": {
