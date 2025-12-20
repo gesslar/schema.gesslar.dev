@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/aliases.json",
+  "title": "Muddler Aliases Schema",
+  "description": "Schema for Mudlet aliases described in aliases.json.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/alias"
+  },
+  "definitions": {
+    "alias": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the alias."
+        },
+        "isActive": {
+          "$ref": "./muddler-common#/$defs/yesNo"
+        },
+        "isFolder": {
+          "$ref": "./muddler-common#/$defs/yesNo"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command text (optional convenience alongside regex/script)."
+        },
+        "regex": {
+          "type": "string",
+          "description": "Regex or exact match for the alias."
+        },
+        "script": {
+          "$ref": "./muddler-common#/$defs/luaScript"
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested aliases when used as a folder (isFolder=yes).",
+          "items": {
+            "$ref": "#/definitions/alias"
+          }
+        }
+      }
+    }
+  }
+}

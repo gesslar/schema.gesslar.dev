@@ -1,0 +1,16 @@
+# Dependencies
+/node_modules
+
+# Production
+/build
+
+# Generated files from Docusaurus
+.docusaurus
+.cache-loader
+
+# Generated documentation (auto-generated from schemas)
+/docs/muddler/*.md
+/docs/bedoc/*.md
+
+# Misc
+.DS_Store

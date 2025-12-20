@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/triggers.json",
+  "title": "Muddler Triggers Schema",
+  "description": "Schema for Mudlet triggers described in triggers.json.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/trigger"
+  },
+  "definitions": {
+    "pattern": {
+      "type": "object",
+      "required": [
+        "pattern"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Pattern text. For color triggers, use \"fg,bg\" (e.g. \"2,0\"). Prompt triggers may be empty."
+        },
+        "type": {
+          "type": "string",
+          "description": "Pattern type.",
+          "enum": [
+            "substring",
+            "regex",
+            "startOfLine",
+            "exactMatch",
+            "lua",
+            "spacer",
+            "color",
+            "colour",
+            "prompt"
+          ],
+          "default": "substring"
+        }
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the trigger."
+        },
+        "isActive": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "isFolder": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "script": {
+          "$ref": "./muddler-common.json#/$defs/luaScript"
+        },
+        "patterns": {
+          "type": "array",
+          "minItems": 1,
+          "description": "List of trigger patterns.",
+          "items": {
+            "$ref": "#/definitions/pattern"
+          }
+        },
+        "multiline": {
+          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "description": "Treat as multiline trigger."
+        },
+        "multilineDelta": {
+          "description": "Number of lines after the first match to keep open when multiline=yes.",
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "string",
+              "pattern": "^\\d+$"
+            }
+          ]
+        },
+        "matchall": {
+          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "description": "Perl /g style matching."
+        },
+        "filter": {
+          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "description": "Mark as filter trigger."
+        },
+        "fireLength": {
+          "description": "Stay-open duration in milliseconds.",
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "string",
+              "pattern": "^\\d+$"
+            }
+          ],
+          "default": "0"
+        },
+        "soundFile": {
+          "type": "string",
+          "description": "Sound file to play on fire (enables sound trigger)."
+        },
+        "highlight": {
+          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "description": "Enable colorizer trigger."
+        },
+        "highlightFG": {
+          "$ref": "./muddler-common.json#/$defs/hexColor"
+        },
+        "highlightBG": {
+          "$ref": "./muddler-common.json#/$defs/hexColor"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command to execute when trigger fires (mCommand)."
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested triggers when used as a folder (isFolder=yes).",
+          "items": {
+            "$ref": "#/definitions/trigger"
+          }
+        }
+      }
+    }
+  }
+}

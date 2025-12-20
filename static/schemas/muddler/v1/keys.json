@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/keys.json",
+  "title": "Muddler Keys Schema",
+  "description": "Schema for Mudlet keybindings described in keys.json.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/key"
+  },
+  "definitions": {
+    "key": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the keybinding."
+        },
+        "isActive": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "isFolder": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "script": {
+          "$ref": "./muddler-common.json#/$defs/luaScript"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command text (optional convenience alongside script)."
+        },
+        "keys": {
+          "type": "string",
+          "description": "Human-readable combo, e.g. \"ctrl+shift+alt+c\" or \"f1\". Parsed into keyCode/keyModifier during build."
+        },
+        "keyCode": {
+          "type": "string",
+          "description": "Optional explicit key code override."
+        },
+        "keyModifier": {
+          "type": "string",
+          "description": "Optional explicit modifier code override."
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested keybindings when used as a folder (isFolder=yes).",
+          "items": {
+            "$ref": "#/definitions/key"
+          }
+        }
+      }
+    }
+  }
+}

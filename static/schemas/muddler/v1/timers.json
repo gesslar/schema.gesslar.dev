@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/timers.json",
+  "title": "Muddler Timers Schema",
+  "description": "Schema for Mudlet timers described in timers.json.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/timer"
+  },
+  "definitions": {
+    "timer": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the timer."
+        },
+        "isActive": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "isFolder": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "script": {
+          "$ref": "./muddler-common.json#/$defs/luaScript"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command text (optional convenience alongside script)."
+        },
+        "time": {
+          "$ref": "./muddler-common.json#/$defs/durationString",
+          "description": "Timer duration. If omitted, constructed from hours/minutes/seconds/milliseconds."
+        },
+        "hours": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Hours component (0-23)."
+        },
+        "minutes": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Minutes component (0-59)."
+        },
+        "seconds": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Seconds component (0-59)."
+        },
+        "milliseconds": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Milliseconds component (0-999)."
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested timers when used as a folder (isFolder=yes).",
+          "items": {
+            "$ref": "#/definitions/timer"
+          }
+        }
+      }
+    }
+  }
+}

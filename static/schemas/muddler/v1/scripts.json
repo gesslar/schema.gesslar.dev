@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/scripts.json",
+  "title": "Muddler Scripts Schema",
+  "description": "Schema for Mudlet scripts described in scripts.json.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/script"
+  },
+  "definitions": {
+    "script": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the script."
+        },
+        "isActive": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "isFolder": {
+          "$ref": "./muddler-common.json#/$defs/yesNo"
+        },
+        "script": {
+          "$ref": "./muddler-common.json#/$defs/luaScript"
+        },
+        "eventHandlerList": {
+          "type": "array",
+          "description": "List of Mudlet events this script handles (e.g. sysInstall).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "children": {
+          "type": "array",
+          "description": "Nested scripts when used as a folder (isFolder=yes).",
+          "items": {
+            "$ref": "#/definitions/script"
+          }
+        }
+      }
+    }
+  }
+}

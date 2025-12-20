@@ -1,0 +1,12 @@
+# Apache mod_rewrite rules
+# Remove redundant /schemas/ prefix from schema URLs
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Rewrite /muddler/* to /schemas/muddler/*
+  RewriteRule ^muddler/(.*)$ /schemas/muddler/$1 [L]
+
+  # Rewrite /bedoc/* to /schemas/bedoc/*
+  RewriteRule ^bedoc/(.*)$ /schemas/bedoc/$1 [L]
+</IfModule>

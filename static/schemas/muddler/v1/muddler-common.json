@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/muddler-common.json",
+  "title": "Muddler Common Definitions Schema",
+  "description": "Shared definitions reused by Muddler JSON schemas.",
+  "$defs": {
+    "yesNo": {
+      "description": "Mudlet stores many booleans as the strings \"yes\"/\"no\"; muddler also accepts real booleans and coerces them.",
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        {
+          "type": "boolean"
+        }
+      ],
+      "default": "yes"
+    },
+    "luaScript": {
+      "type": "string",
+      "description": "Lua code. Leave empty to let muddler pull the matching .lua file from src/<type>/... during build.",
+      "default": ""
+    },
+    "hexColor": {
+      "type": "string",
+      "pattern": "^#([A-Fa-f0-9]{6})$",
+      "description": "RGB hex color in #rrggbb form."
+    },
+    "durationString": {
+      "type": "string",
+      "pattern": "^\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$",
+      "description": "Timer duration string (hh:mm:ss.mmm)."
+    },
+    "fileRef": {
+      "type": "string",
+      "description": "Relative path used internally by muddler; usually set automatically."
+    }
+  }
+}

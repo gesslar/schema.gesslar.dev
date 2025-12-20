@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.gesslar.dev/muddler/v1/mfile.json",
+  "title": "Muddler mfile Schema",
+  "description": "Schema for the project-level mfile consumed by muddler.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "package"
+  ],
+  "properties": {
+    "package": {
+      "type": "string",
+      "description": "Mudlet package name."
+    },
+    "version": {
+      "type": "string",
+      "description": "Package version (e.g. 1.0.0)."
+    },
+    "author": {
+      "type": "string",
+      "description": "Author name displayed in Mudlet."
+    },
+    "title": {
+      "type": "string",
+      "description": "One-line package title/description."
+    },
+    "description": {
+      "type": "string",
+      "description": "Longer description (fallbacks to README.md if absent)."
+    },
+    "icon": {
+      "type": "string",
+      "description": "Filename under src/resources used as package icon."
+    },
+    "dependencies": {
+      "type": "string",
+      "description": "Comma-separated Mudlet package dependencies."
+    },
+    "outputFile": {
+      "type": "boolean",
+      "description": "Whether to emit .output with package path after build.",
+      "default": false
+    }
+  }
+}

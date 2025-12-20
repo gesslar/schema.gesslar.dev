@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/muddler/:path*",
+      "destination": "/schemas/muddler/:path*"
+    },
+    {
+      "source": "/bedoc/:path*",
+      "destination": "/schemas/bedoc/:path*"
+    }
+  ]
+}
