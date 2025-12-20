@@ -11,7 +11,7 @@
     "script": {
       "allOf": [
         {
-          "$ref": "./muddler-common.json#/$defs/nodeBase"
+          "$ref": "./common.json#/$defs/nodeBase"
         },
         {
           "type": "object",

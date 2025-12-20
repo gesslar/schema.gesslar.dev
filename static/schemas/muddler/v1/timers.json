@@ -11,7 +11,7 @@
     "timer": {
       "allOf": [
         {
-          "$ref": "./muddler-common.json#/$defs/nodeBase"
+          "$ref": "./common.json#/$defs/nodeBase"
         },
         {
           "type": "object",
@@ -23,27 +23,27 @@
               "description": "Yes if this is a folder, no otherwise."
             },
             "command": {
-              "$ref": "./muddler-common.json#/$defs/commandString",
+              "$ref": "./common.json#/$defs/commandString",
               "description": "Command text (optional convenience alongside script)."
             },
             "time": {
-              "$ref": "./muddler-common.json#/$defs/durationString",
+              "$ref": "./common.json#/$defs/durationString",
               "description": "Timer duration. If omitted, constructed from hours/minutes/seconds/milliseconds."
             },
             "hours": {
-              "$ref": "./muddler-common.json#/$defs/hours23",
+              "$ref": "./common.json#/$defs/hours23",
               "description": "Hours component (0-23)."
             },
             "minutes": {
-              "$ref": "./muddler-common.json#/$defs/minutes59",
+              "$ref": "./common.json#/$defs/minutes59",
               "description": "Minutes component (0-59)."
             },
             "seconds": {
-              "$ref": "./muddler-common.json#/$defs/minutes59",
+              "$ref": "./common.json#/$defs/minutes59",
               "description": "Seconds component (0-59)."
             },
             "milliseconds": {
-              "$ref": "./muddler-common.json#/$defs/milliseconds999",
+              "$ref": "./common.json#/$defs/milliseconds999",
               "description": "Milliseconds component (0-999)."
             },
             "children": {
