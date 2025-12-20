@@ -57,8 +57,8 @@ export default function Home() {
 
   return (
     <Layout
-      title="Schema Stream"
-      description="schema.gesslar.dev — submerged schema stream"
+      title="schema.gesslar.dev"
+      description="schema.gesslar.dev — schema hosting and reference"
     >
       <main className={styles.page}>
         <div className={styles.matrixLayer} aria-hidden>
