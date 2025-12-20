@@ -9,69 +9,48 @@
   },
   "definitions": {
     "timer": {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Display name of the timer."
+      "allOf": [
+        {
+          "$ref": "./muddler-common.json#/$defs/nodeBase"
         },
-        "isActive": {
-          "$ref": "./muddler-common.json#/$defs/yesNo"
-        },
-        "isFolder": {
-          "$ref": "./muddler-common.json#/$defs/yesNo"
-        },
-        "script": {
-          "$ref": "./muddler-common.json#/$defs/luaScript"
-        },
-        "command": {
-          "type": "string",
-          "description": "Command text (optional convenience alongside script)."
-        },
-        "time": {
-          "$ref": "./muddler-common.json#/$defs/durationString",
-          "description": "Timer duration. If omitted, constructed from hours/minutes/seconds/milliseconds."
-        },
-        "hours": {
-          "type": [
-            "integer",
-            "string"
-          ],
-          "description": "Hours component (0-23)."
-        },
-        "minutes": {
-          "type": [
-            "integer",
-            "string"
-          ],
-          "description": "Minutes component (0-59)."
-        },
-        "seconds": {
-          "type": [
-            "integer",
-            "string"
-          ],
-          "description": "Seconds component (0-59)."
-        },
-        "milliseconds": {
-          "type": [
-            "integer",
-            "string"
-          ],
-          "description": "Milliseconds component (0-999)."
-        },
-        "children": {
-          "type": "array",
-          "description": "Nested timers when used as a folder (isFolder=yes).",
-          "items": {
-            "$ref": "#/definitions/timer"
+        {
+          "type": "object",
+          "properties": {
+            "command": {
+              "$ref": "./muddler-common.json#/$defs/nodeBase",
+              "description": "Command text (optional convenience alongside script)."
+            },
+            "time": {
+              "$ref": "./muddler-common.json#/$defs/durationString",
+              "description": "Timer duration. If omitted, constructed from hours/minutes/seconds/milliseconds."
+            },
+            "hours": {
+              "$ref": "./muddler-common.json#/$defs/hours23",
+              "description": "Hours component (0-23)."
+            },
+            "minutes": {
+              "$ref": "./muddler-common.json#/$defs/minutes59",
+              "description": "Minutes component (0-59)."
+            },
+            "seconds": {
+              "$ref": "./muddler-common.json#/$defs/minutes59",
+              "description": "Seconds component (0-59)."
+            },
+            "milliseconds": {
+              "$ref": "./muddler-common.json#/$defs/milliseconds999",
+              "description": "Milliseconds component (0-999)."
+            },
+            "children": {
+              "type": "array",
+              "description": "Nested timers when used as a folder (isFolder=yes).",
+              "items": {
+                "$ref": "#/definitions/timer"
+              }
+            }
           }
         }
-      }
+      ],
+      "unevaluatedProperties": false
     }
   }
 }

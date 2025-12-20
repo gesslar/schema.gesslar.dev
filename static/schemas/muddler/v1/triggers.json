@@ -13,7 +13,6 @@
       "required": [
         "pattern"
       ],
-      "additionalProperties": false,
       "properties": {
         "pattern": {
           "type": "string",
@@ -49,10 +48,14 @@
           "description": "Display name of the trigger."
         },
         "isActive": {
-          "$ref": "./muddler-common.json#/$defs/yesNo"
+          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "description": "Yes if this script will automatically load, no otherwise.",
+          "default": "yes"
         },
         "isFolder": {
-          "$ref": "./muddler-common.json#/$defs/yesNo"
+          "$ref": "./muddler-common.json#/$defs/yesNo",
+          "description": "Yes if this a folder, no otherwise.",
+          "default": "no"
         },
         "script": {
           "$ref": "./muddler-common.json#/$defs/luaScript"
@@ -67,7 +70,8 @@
         },
         "multiline": {
           "$ref": "./muddler-common.json#/$defs/yesNo",
-          "description": "Treat as multiline trigger."
+          "description": "Treat as multiline trigger.",
+          "default": "no"
         },
         "multilineDelta": {
           "description": "Number of lines after the first match to keep open when multiline=yes.",
@@ -84,11 +88,13 @@
         },
         "matchall": {
           "$ref": "./muddler-common.json#/$defs/yesNo",
-          "description": "Perl /g style matching."
+          "description": "Perl /g style matching.",
+          "default": "no"
         },
         "filter": {
           "$ref": "./muddler-common.json#/$defs/yesNo",
-          "description": "Mark as filter trigger."
+          "description": "Mark as filter trigger.",
+          "default": "no"
         },
         "fireLength": {
           "description": "Stay-open duration in milliseconds.",
@@ -110,7 +116,8 @@
         },
         "highlight": {
           "$ref": "./muddler-common.json#/$defs/yesNo",
-          "description": "Enable colorizer trigger."
+          "description": "Enable colorizer trigger.",
+          "default": "no"
         },
         "highlightFG": {
           "$ref": "./muddler-common.json#/$defs/hexColor"
