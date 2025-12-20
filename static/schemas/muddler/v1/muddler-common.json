@@ -4,6 +4,35 @@
   "title": "Muddler Common Definitions Schema",
   "description": "Shared definitions reused by Muddler JSON schemas.",
   "$defs": {
+    "nodeBase": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name."
+        },
+        "isActive": {
+          "$ref": "#/$defs/yesNo",
+          "description": "Yes if this script will automatically load, no otherwise.",
+          "default": "yes"
+        },
+        "isFolder": {
+          "$ref": "#/$defs/yesNo",
+          "description": "Yes if this a folder, no otherwise.",
+          "default": "no"
+        },
+        "script": {
+          "$ref": "#/$defs/luaScript"
+        }
+      }
+    },
+    "commandString": {
+      "type": "string",
+      "description": "Command text (optional convenience alongside script)."
+    },
     "yesNo": {
       "description": "Mudlet stores many booleans as the strings \"yes\"/\"no\"; muddler also accepts real booleans and coerces them.",
       "anyOf": [
@@ -22,7 +51,7 @@
     },
     "luaScript": {
       "type": "string",
-      "description": "Lua code. Leave empty to let muddler pull the matching .lua file from src/<type>/... during build.",
+      "description": "Lua code. Leave empty to let muddler pull the corresponding .lua file during build.",
       "default": ""
     },
     "hexColor": {
@@ -34,6 +63,115 @@
       "type": "string",
       "pattern": "^\\d{2}:\\d{2}:\\d{2}\\.\\d{3}$",
       "description": "Timer duration string (hh:mm:ss.mmm)."
+    },
+    "intOrDigitsString": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string",
+          "pattern": "^\\d+$"
+        }
+      ]
+    },
+    "hours23": {
+      "description": "Hours component (0-23).",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 23
+        },
+        {
+          "type": "string",
+          "pattern": "^(?:\\d|1\\d|2[0-3])$"
+        }
+      ]
+    },
+    "minutes59": {
+      "description": "Minutes/seconds component (0-59).",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        {
+          "type": "string",
+          "pattern": "^(?:\\d|[1-5]\\d)$"
+        }
+      ]
+    },
+    "milliseconds999": {
+      "description": "Milliseconds component (0-999).",
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999
+        },
+        {
+          "type": "string",
+          "pattern": "^\\d{1,3}$"
+        }
+      ]
+    },
+    "timerTimeInput": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "$ref": "#/$defs/durationString"
+        },
+        "hours": {
+          "$ref": "#/$defs/hours23"
+        },
+        "minutes": {
+          "$ref": "#/$defs/minutes59"
+        },
+        "seconds": {
+          "$ref": "#/$defs/minutes59"
+        },
+        "milliseconds": {
+          "$ref": "#/$defs/milliseconds999"
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "time"
+          ]
+        },
+        {
+          "not": {
+            "required": [
+              "time"
+            ]
+          },
+          "anyOf": [
+            {
+              "required": [
+                "hours"
+              ]
+            },
+            {
+              "required": [
+                "minutes"
+              ]
+            },
+            {
+              "required": [
+                "seconds"
+              ]
+            },
+            {
+              "required": [
+                "milliseconds"
+              ]
+            }
+          ]
+        }
+      ]
     },
     "fileRef": {
       "type": "string",
