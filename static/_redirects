@@ -1,5 +1,0 @@
-# Netlify/Vercel-style redirects
-# Remove redundant /schemas/ prefix from schema URLs
-
-/muddler/*  /schemas/muddler/:splat  200
-/bedoc/*    /schemas/bedoc/:splat    200
