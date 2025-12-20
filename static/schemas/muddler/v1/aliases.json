@@ -20,10 +20,10 @@
           "description": "Display name of the alias."
         },
         "isActive": {
-          "$ref": "./muddler-common#/$defs/yesNo"
+          "$ref": "./muddler-common.json#/$defs/yesNo"
         },
         "isFolder": {
-          "$ref": "./muddler-common#/$defs/yesNo"
+          "$ref": "./muddler-common.json#/$defs/yesNo"
         },
         "command": {
           "type": "string",
@@ -34,7 +34,7 @@
           "description": "Regex or exact match for the alias."
         },
         "script": {
-          "$ref": "./muddler-common#/$defs/luaScript"
+          "$ref": "./muddler-common.json#/$defs/luaScript"
         },
         "children": {
           "type": "array",
