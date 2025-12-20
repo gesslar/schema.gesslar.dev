@@ -32,7 +32,6 @@
       "description": "Command text (optional convenience alongside script)."
     },
     "yesNo": {
-      "description": "Mudlet stores many booleans as the strings \"yes\"/\"no\"; muddler also accepts real booleans and coerces them.",
       "anyOf": [
         {
           "type": "string",
