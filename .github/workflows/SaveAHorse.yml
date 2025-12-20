@@ -1,4 +1,4 @@
-name: Build and RSYNC Deploy
+name: Ride a Cowboy
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  giddyup-mfer:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

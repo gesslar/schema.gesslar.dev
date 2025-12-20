@@ -11,6 +11,7 @@
     "start": "docusaurus start",
     "prebuild": "npm run generate-docs",
     "build": "docusaurus build",
+    "rebuild": "docusaurus clear && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
