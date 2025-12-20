@@ -48,16 +48,35 @@
   --g-code-color: #9ef4dc;
 }
 
+html[data-theme='dark'] {
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(71, 204, 177, 0.08), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(0, 146, 255, 0.12), transparent 30%),
+    linear-gradient(140deg, #010a0a, #020f13 45%, #041a1f);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 body {
   background-color: var(--ifm-background-color);
   color: var(--g-text);
 }
 
 [data-theme='dark'] body {
-  background-image:
-    radial-gradient(circle at 10% 15%, rgba(71, 204, 177, 0.08), transparent 35%),
-    radial-gradient(circle at 85% 10%, rgba(0, 146, 255, 0.12), transparent 30%),
-    linear-gradient(140deg, #010a0a, #020f13 45%, #041a1f);
+  background: transparent;
+}
+
+/* Prevent scroll on home page */
+html:has(main[class*='page']) {
+  height: 100%;
+  overflow: hidden;
+}
+
+html:has(main[class*='page']) body {
+  height: 100%;
+  overflow: hidden;
 }
 
 .navbar {
