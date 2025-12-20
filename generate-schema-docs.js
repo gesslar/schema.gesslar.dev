@@ -76,6 +76,7 @@ ${JSON.stringify(schemaData, null, 2)}
 // Function to process a schema directory
 function processSchemaDirectory(category, srcDir, docsDir) {
   const schemaFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.json'));
+  const mdFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.md'));
 
   // Create category index
   let indexMarkdown = `---
@@ -96,7 +97,22 @@ JSON schemas for ${category}.
     indexMarkdown += `- [${baseName}](${baseName}.md)\n`;
   });
 
+  mdFiles.forEach(file => {
+    const baseName = path.basename(file, '.md');
+    if (baseName !== 'index.md') {
+      indexMarkdown += `- [${baseName.replace('.md', '')}](${file})\n`;
+    }
+  });
+
   fs.writeFileSync(path.join(docsDir, 'index.md'), indexMarkdown);
+
+  // Copy .md files directly
+  mdFiles.forEach(file => {
+    const srcPath = path.join(srcDir, file);
+    const destPath = path.join(docsDir, file);
+    fs.copyFileSync(srcPath, destPath);
+    console.log(`Copied ${file} to ${path.relative(__dirname, destPath)}`);
+  });
 
   // Generate individual schema pages
   schemaFiles.forEach((file, index) => {

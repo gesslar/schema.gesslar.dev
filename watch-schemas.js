@@ -34,7 +34,7 @@ function regenerateDocs() {
 }
 
 function handleChange(eventType, filename) {
-  if (!filename || !filename.endsWith('.json')) return;
+  if (!filename || !(filename.endsWith('.json') || filename.endsWith('.md'))) return;
 
   // Debounce multiple rapid changes
   if (timeout) clearTimeout(timeout);
