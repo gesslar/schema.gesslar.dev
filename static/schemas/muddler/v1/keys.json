@@ -16,6 +16,12 @@
         {
           "type": "object",
           "properties": {
+            "isActive": {
+              "description": "Yes if this keybinding will automatically load, no otherwise."
+            },
+            "isFolder": {
+              "description": "Yes if this is a folder, no otherwise."
+            },
             "command": {
               "$ref": "./muddler-common.json#/$defs/commandString",
               "description": "Command text (optional convenience alongside script)."

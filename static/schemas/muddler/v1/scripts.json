@@ -16,6 +16,12 @@
         {
           "type": "object",
           "properties": {
+            "isActive": {
+              "description": "Yes if this script will automatically load, no otherwise."
+            },
+            "isFolder": {
+              "description": "Yes if this is a folder, no otherwise."
+            },
             "eventHandlerList": {
               "type": "array",
               "description": "List of Mudlet events this script handles (e.g. sysInstall).",

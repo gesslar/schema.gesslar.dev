@@ -16,6 +16,12 @@
         {
           "type": "object",
           "properties": {
+            "isActive": {
+              "description": "Yes if this alias will automatically load, no otherwise."
+            },
+            "isFolder": {
+              "description": "Yes if this is a folder, no otherwise."
+            },
             "regex": {
               "type": "string",
               "description": "Regex or exact match for the alias."

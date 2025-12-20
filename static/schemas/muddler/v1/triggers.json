@@ -37,29 +37,19 @@
       }
     },
     "trigger": {
-      "type": "object",
-      "required": [
-        "name"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Display name of the trigger."
+      "allOf": [
+        {
+          "$ref": "./muddler-common.json#/$defs/nodeBase"
         },
-        "isActive": {
-          "$ref": "./muddler-common.json#/$defs/yesNo",
-          "description": "Yes if this script will automatically load, no otherwise.",
-          "default": "yes"
-        },
-        "isFolder": {
-          "$ref": "./muddler-common.json#/$defs/yesNo",
-          "description": "Yes if this a folder, no otherwise.",
-          "default": "no"
-        },
-        "script": {
-          "$ref": "./muddler-common.json#/$defs/luaScript"
-        },
+        {
+          "type": "object",
+          "properties": {
+            "isActive": {
+              "description": "Yes if this trigger will automatically load, no otherwise."
+            },
+            "isFolder": {
+              "description": "Yes if this is a folder, no otherwise."
+            },
         "patterns": {
           "type": "array",
           "minItems": 1,
@@ -119,6 +109,9 @@
           }
         }
       }
+        }
+      ],
+      "unevaluatedProperties": false
     }
   }
 }
