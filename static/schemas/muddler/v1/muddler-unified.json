@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.gesslar.dev/muddler/v1/muddler.json",
+  "$id": "https://schema.gesslar.dev/muddler/v1/muddler-unified.json",
   "title": "Muddler Unified Schema",
   "description": "Unified schema containing all muddler JSON schemas with anchors for per-file use.",
   "$defs": {
