@@ -74,17 +74,8 @@
           "default": "no"
         },
         "multilineDelta": {
-          "description": "Number of lines after the first match to keep open when multiline=yes.",
-          "anyOf": [
-            {
-              "type": "integer",
-              "minimum": 0
-            },
-            {
-              "type": "string",
-              "pattern": "^\\d+$"
-            }
-          ]
+          "$ref": "./muddler-common.json#/$defs/positiveIntOrDigitsString",
+          "description": "Number of lines after the first match to keep open when multiline=yes."
         },
         "matchall": {
           "$ref": "./muddler-common.json#/$defs/yesNo",
@@ -97,17 +88,8 @@
           "default": "no"
         },
         "fireLength": {
+          "$ref": "./muddler-common.json#/$defs/positiveIntOrDigitsString",
           "description": "Stay-open duration in milliseconds.",
-          "anyOf": [
-            {
-              "type": "integer",
-              "minimum": 0
-            },
-            {
-              "type": "string",
-              "pattern": "^\\d+$"
-            }
-          ],
           "default": "0"
         },
         "soundFile": {

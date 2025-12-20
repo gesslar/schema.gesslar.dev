@@ -21,7 +21,7 @@
               "description": "Regex or exact match for the alias."
             },
             "command": {
-              "$ref": "./muddler-common.json#/$defs/nodeBase",
+              "$ref": "./muddler-common.json#/$defs/commandString",
               "description": "Command text (optional convenience alongside regex/script)."
             },
             "children": {

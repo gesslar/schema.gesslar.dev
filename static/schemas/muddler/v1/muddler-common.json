@@ -75,6 +75,19 @@
         }
       ]
     },
+    "positiveIntOrDigitsString": {
+      "description": "Non-negative integer or string of digits.",
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "string",
+          "pattern": "^\\d+$"
+        }
+      ]
+    },
     "hours23": {
       "description": "Hours component (0-23).",
       "oneOf": [
