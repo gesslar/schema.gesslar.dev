@@ -39,8 +39,8 @@
     },
     "outputFile": {
       "type": "boolean",
-      "description": "Whether to emit .output with package path after build.",
-      "default": false
+      "description": "Whether to emit `.output` with package path after build.",
+      "default": true
     }
   }
 }
