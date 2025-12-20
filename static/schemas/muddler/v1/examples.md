@@ -1,6 +1,6 @@
 ---
 title: Example Usage
-sidebar_position: 0
+sidebar_position: 99
 ---
 
 import Tabs from '@theme/Tabs';

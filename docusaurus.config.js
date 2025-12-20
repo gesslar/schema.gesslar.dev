@@ -3,7 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const { vsLight: PrismLight, vsDark: PrismDark } = prismThemes
 
 const config = {
-  title: 'Schema Documentation',
+  title: 'schema.gesslar.dev',
   tagline: 'JSON Schema Repository',
   favicon: 'img/favicon.ico',
 
