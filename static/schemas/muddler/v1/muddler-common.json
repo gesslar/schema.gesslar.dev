@@ -15,21 +15,11 @@
           "description": "Display name."
         },
         "isActive": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/yesNo"
-            }
-          ],
-          "description": "Yes if this script will automatically load, no otherwise.",
+          "$ref": "#/$defs/yesNo",
           "default": "yes"
         },
         "isFolder": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/yesNo"
-            }
-          ],
-          "description": "Yes if this a folder, no otherwise.",
+          "$ref": "#/$defs/yesNo",
           "default": "no"
         },
         "script": {
