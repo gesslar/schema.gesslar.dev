@@ -60,6 +60,7 @@ html {
 
   body {
     background: transparent;
+    color: var(--g-text);
 
     :has(main[class*='page']) {
       height: 100%;
