@@ -16,7 +16,7 @@ const schemaStrings = [
   {id: 'bedoc-action', text: JSON.stringify(bedocActionSchema, null, 2)},
 ];
 
-const STREAM_COUNT = 12;
+const STREAM_COUNT = 5;
 
 const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
