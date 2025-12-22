@@ -120,7 +120,7 @@ export default function Home() {
 
         <section className={styles.about}>
           <div className={styles.aboutContent}>
-            <h2>What are schemas?</h2>
+            <h3>What are schemas?</h3>
             <p>
               Schemas define the structure and rules for your data formats. They provide validation, 
               autocomplete, and inline documentation right in your editor — catching errors before 
