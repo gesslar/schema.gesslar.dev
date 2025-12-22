@@ -9,8 +9,7 @@
 .cache-loader
 
 # Generated documentation (auto-generated from schemas)
-/docs/muddler/*.md
-/docs/bedoc/*.md
+/docs/**/*.md
 
 # Misc
 .DS_Store

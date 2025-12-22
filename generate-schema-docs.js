@@ -1,16 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-// Function to generate markdown from a schema
+// Function to generate markdown from a JSON schema
 function generateSchemaMarkdown(schemaPath, schemaData, sidebarPosition) {
-  const fileName = path.basename(schemaPath, '.json');
+  const fileName = path.basename(schemaPath);
   const schemaUrl = schemaData.$id || `https://schema.gesslar.dev/${schemaPath.replace('../src/', '')}`;
 
   let markdown = `---
 sidebar_position: ${sidebarPosition}
 ---
 
-# ${schemaData.title || fileName}
+# ${fileName}
 
 ${schemaData.description || ''}
 
@@ -73,10 +73,53 @@ ${JSON.stringify(schemaData, null, 2)}
   return markdown;
 }
 
+// Function to generate markdown from an XSD schema
+function generateXsdMarkdown(xsdPath, sidebarPosition) {
+  const fileName = path.basename(xsdPath);
+  const xsdContent = fs.readFileSync(xsdPath, 'utf8');
+  const schemaUrl = `https://schema.gesslar.dev/${xsdPath.replace(/^\.\/static\//, '')}`;
+
+  let markdown = `---
+sidebar_position: ${sidebarPosition}
+---
+
+# ${fileName}
+
+XML Schema Definition (XSD) for this schema.
+
+## Schema URL
+
+\`\`\`
+${schemaUrl}
+\`\`\`
+
+## Full Schema
+
+\`\`\`xml
+${xsdContent}
+\`\`\`
+`;
+
+  return markdown;
+}
+
 // Function to process a schema directory
 function processSchemaDirectory(category, srcDir, docsDir) {
   const schemaFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.json'));
+  const xsdFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.xsd'));
   const mdFiles = fs.readdirSync(srcDir).filter(f => f.endsWith('.md'));
+
+  // Determine schema type for display
+  const hasJson = schemaFiles.length > 0;
+  const hasXsd = xsdFiles.length > 0;
+  let schemaTypeText = 'Schemas';
+  if (hasJson && hasXsd) {
+    schemaTypeText = 'JSON schemas and XML Schema Definitions (XSD)';
+  } else if (hasJson) {
+    schemaTypeText = 'JSON schemas';
+  } else if (hasXsd) {
+    schemaTypeText = 'XML Schema Definitions (XSD)';
+  }
 
   // Create category index
   let indexMarkdown = `---
@@ -86,21 +129,29 @@ slug: /${category}
 
 # ${category.charAt(0).toUpperCase() + category.slice(1)} Schemas
 
-JSON schemas for ${category}.
+${schemaTypeText} for ${category}.
 
 ## Available Schemas
 
 `;
 
+  // List JSON schemas
   schemaFiles.forEach(file => {
     const baseName = path.basename(file, '.json');
     indexMarkdown += `- [${baseName}](${baseName}.md)\n`;
   });
 
+  // List XSD files
+  xsdFiles.forEach(file => {
+    const baseName = path.basename(file, '.xsd');
+    indexMarkdown += `- [${baseName}](${baseName}.md)\n`;
+  });
+
+  // List markdown files
   mdFiles.forEach(file => {
     const baseName = path.basename(file, '.md');
-    if (baseName !== 'index.md') {
-      indexMarkdown += `- [${baseName.replace('.md', '')}](${file})\n`;
+    if (baseName !== 'index' && baseName !== 'readme') {
+      indexMarkdown += `- [${baseName}](${file})\n`;
     }
   });
 
@@ -114,7 +165,7 @@ JSON schemas for ${category}.
     console.log(`Copied ${file} to ${path.relative(__dirname, destPath)}`);
   });
 
-  // Generate individual schema pages
+  // Generate individual JSON schema pages
   schemaFiles.forEach((file, index) => {
     const schemaPath = path.join(srcDir, file);
     const schemaData = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
@@ -123,29 +174,105 @@ JSON schemas for ${category}.
     const markdown = generateSchemaMarkdown(
       path.relative(path.join(__dirname, '..'), schemaPath),
       schemaData,
-      index + 2
+      index + 100
     );
 
     fs.writeFileSync(path.join(docsDir, `${baseName}.md`), markdown);
+    console.log(`Generated JSON schema doc for ${baseName}`);
   });
+
+  // Generate individual XSD schema pages
+  xsdFiles.forEach((file, index) => {
+    const xsdPath = path.join(srcDir, file);
+    const baseName = path.basename(file, '.xsd');
+
+    const markdown = generateXsdMarkdown(
+      path.relative(__dirname, xsdPath),
+      schemaFiles.length + index + 100
+    );
+
+    fs.writeFileSync(path.join(docsDir, `${baseName}.md`), markdown);
+    console.log(`Generated XSD schema doc for ${baseName}`);
+  });
+}
+
+// Discover all schema directories automatically
+function discoverSchemaDirectories() {
+  const schemasRoot = path.join(__dirname, 'static/schemas');
+  const categories = [];
+
+  if (!fs.existsSync(schemasRoot)) {
+    console.warn('Warning: static/schemas directory not found');
+    return categories;
+  }
+
+  // Iterate through each category directory (e.g., muddler, bedoc, mpackage)
+  const categoryDirs = fs.readdirSync(schemasRoot, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  categoryDirs.forEach(category => {
+    const categoryPath = path.join(schemasRoot, category);
+    
+    // Find version directories (e.g., v1, v1.001)
+    const versionDirs = fs.readdirSync(categoryPath, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name);
+
+    // For each version directory, add to categories
+    versionDirs.forEach(version => {
+      const srcDir = `./static/schemas/${category}/${version}`;
+      const docsDir = `./docs/${category}`;
+      
+      categories.push({
+        name: category,
+        version: version,
+        srcDir: srcDir,
+        docsDir: docsDir
+      });
+    });
+  });
+
+  return categories;
+}
+
+// Clean out a directory's contents
+function cleanDirectory(dir) {
+  if (fs.existsSync(dir)) {
+    const files = fs.readdirSync(dir);
+    files.forEach(file => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+      if (stat.isDirectory()) {
+        cleanDirectory(filePath);
+        fs.rmdirSync(filePath);
+      } else {
+        fs.unlinkSync(filePath);
+      }
+    });
+  }
 }
 
 // Main execution
 function generateAllDocs() {
-  const categories = [
-    { name: 'muddler', srcDir: './static/schemas/muddler/v1', docsDir: './docs/muddler' },
-    { name: 'bedoc', srcDir: './static/schemas/bedoc/v1', docsDir: './docs/bedoc' }
-  ];
+  const categories = discoverSchemaDirectories();
 
   console.log('Generating documentation from schemas...');
+  console.log(`Found ${categories.length} schema directory(ies):\n`);
+  categories.forEach(({ name, version, srcDir }) => {
+    console.log(`  - ${name} (${version}): ${srcDir}`);
+  });
+  console.log('');
   categories.forEach(({ name, srcDir, docsDir }) => {
     const fullSrcDir = path.join(__dirname, srcDir);
     const fullDocsDir = path.join(__dirname, docsDir);
 
-    // Create docs directory if it doesn't exist
-    if (!fs.existsSync(fullDocsDir)) {
-      fs.mkdirSync(fullDocsDir, { recursive: true });
+    // Clean and recreate docs directory
+    if (fs.existsSync(fullDocsDir)) {
+      console.log(`Cleaning ${path.relative(__dirname, fullDocsDir)}...`);
+      cleanDirectory(fullDocsDir);
     }
+    fs.mkdirSync(fullDocsDir, { recursive: true });
 
     processSchemaDirectory(name, fullSrcDir, fullDocsDir);
     console.log(`Generated documentation for ${name}`);

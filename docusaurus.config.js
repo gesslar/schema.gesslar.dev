@@ -76,6 +76,12 @@ const config = {
           label: 'Muddler',
         },
         {
+          type: 'docSidebar',
+          sidebarId: 'mpackageSidebar',
+          position: 'left',
+          label: 'mpackage',
+        },
+        {
           href: 'https://github.com/gesslar/schema.gesslar.dev',
           label: 'GitHub',
           position: 'right',
