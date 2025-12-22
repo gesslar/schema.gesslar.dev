@@ -131,21 +131,21 @@ export default function Home() {
               <div className={styles.feature}>
                 <span className={styles.featureIcon}>✓</span>
                 <div>
-                  <strong>Validation</strong>
+                  <h4>Validation</h4>
                   <p>Catch errors as you type with real-time structure checking</p>
                 </div>
               </div>
               <div className={styles.feature}>
                 <span className={styles.featureIcon}>✨</span>
                 <div>
-                  <strong>Autocomplete</strong>
+                  <h4>Autocomplete</h4>
                   <p>Smart suggestions for properties, values, and types</p>
                 </div>
               </div>
               <div className={styles.feature}>
                 <span className={styles.featureIcon}>📖</span>
                 <div>
-                  <strong>Documentation</strong>
+                  <h4>Documentation</h4>
                   <p>Inline help and examples without leaving your editor</p>
                 </div>
               </div>
