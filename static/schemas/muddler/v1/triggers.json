@@ -39,7 +39,7 @@
     "trigger": {
       "allOf": [
         {
-          "$ref": "./common.json#/$defs/nodeBase"
+          "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/nodeBase"
         },
         {
           "type": "object",
@@ -50,65 +50,65 @@
             "isFolder": {
               "description": "Yes if this is a folder, no otherwise."
             },
-        "patterns": {
-          "type": "array",
-          "minItems": 1,
-          "description": "List of trigger patterns.",
-          "items": {
-            "$ref": "#/definitions/pattern"
+            "patterns": {
+              "type": "array",
+              "minItems": 1,
+              "description": "List of trigger patterns.",
+              "items": {
+                "$ref": "#/definitions/pattern"
+              }
+            },
+            "multiline": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/yesNo",
+              "description": "Treat as multiline trigger.",
+              "default": "no"
+            },
+            "multilineDelta": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/positiveIntOrDigitsString",
+              "description": "Number of lines after the first match to keep open when multiline=yes."
+            },
+            "matchall": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/yesNo",
+              "description": "Perl /g style matching.",
+              "default": "no"
+            },
+            "filter": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/yesNo",
+              "description": "Mark as filter trigger.",
+              "default": "no"
+            },
+            "fireLength": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/positiveIntOrDigitsString",
+              "description": "Stay-open duration in milliseconds.",
+              "default": "0"
+            },
+            "soundFile": {
+              "type": "string",
+              "description": "Sound file to play on fire (enables sound trigger)."
+            },
+            "highlight": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/yesNo",
+              "description": "Enable colorizer trigger.",
+              "default": "no"
+            },
+            "highlightFG": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/hexColor"
+            },
+            "highlightBG": {
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/hexColor"
+            },
+            "command": {
+              "type": "string",
+              "description": "Command to execute when trigger fires (mCommand)."
+            },
+            "children": {
+              "type": "array",
+              "description": "Nested triggers when used as a folder (isFolder=yes).",
+              "items": {
+                "$ref": "#/definitions/trigger"
+              }
+            }
           }
-        },
-        "multiline": {
-          "$ref": "./common.json#/$defs/yesNo",
-          "description": "Treat as multiline trigger.",
-          "default": "no"
-        },
-        "multilineDelta": {
-          "$ref": "./common.json#/$defs/positiveIntOrDigitsString",
-          "description": "Number of lines after the first match to keep open when multiline=yes."
-        },
-        "matchall": {
-          "$ref": "./common.json#/$defs/yesNo",
-          "description": "Perl /g style matching.",
-          "default": "no"
-        },
-        "filter": {
-          "$ref": "./common.json#/$defs/yesNo",
-          "description": "Mark as filter trigger.",
-          "default": "no"
-        },
-        "fireLength": {
-          "$ref": "./common.json#/$defs/positiveIntOrDigitsString",
-          "description": "Stay-open duration in milliseconds.",
-          "default": "0"
-        },
-        "soundFile": {
-          "type": "string",
-          "description": "Sound file to play on fire (enables sound trigger)."
-        },
-        "highlight": {
-          "$ref": "./common.json#/$defs/yesNo",
-          "description": "Enable colorizer trigger.",
-          "default": "no"
-        },
-        "highlightFG": {
-          "$ref": "./common.json#/$defs/hexColor"
-        },
-        "highlightBG": {
-          "$ref": "./common.json#/$defs/hexColor"
-        },
-        "command": {
-          "type": "string",
-          "description": "Command to execute when trigger fires (mCommand)."
-        },
-        "children": {
-          "type": "array",
-          "description": "Nested triggers when used as a folder (isFolder=yes).",
-          "items": {
-            "$ref": "#/definitions/trigger"
-          }
-        }
-      }
         }
       ],
       "unevaluatedProperties": false

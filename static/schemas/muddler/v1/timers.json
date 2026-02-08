@@ -11,7 +11,7 @@
     "timer": {
       "allOf": [
         {
-          "$ref": "./common.json#/$defs/nodeBase"
+          "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/nodeBase"
         },
         {
           "type": "object",
@@ -23,27 +23,27 @@
               "description": "Yes if this is a folder, no otherwise."
             },
             "command": {
-              "$ref": "./common.json#/$defs/commandString",
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/commandString",
               "description": "Command text (optional convenience alongside script)."
             },
             "time": {
-              "$ref": "./common.json#/$defs/durationString",
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/durationString",
               "description": "Timer duration. If omitted, constructed from hours/minutes/seconds/milliseconds."
             },
             "hours": {
-              "$ref": "./common.json#/$defs/hours23",
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/hours23",
               "description": "Hours component (0-23)."
             },
             "minutes": {
-              "$ref": "./common.json#/$defs/minutes59",
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/minutes59",
               "description": "Minutes component (0-59)."
             },
             "seconds": {
-              "$ref": "./common.json#/$defs/minutes59",
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/minutes59",
               "description": "Seconds component (0-59)."
             },
             "milliseconds": {
-              "$ref": "./common.json#/$defs/milliseconds999",
+              "$ref": "https://schema.gesslar.dev/muddler/v1/common.json#/$defs/milliseconds999",
               "description": "Milliseconds component (0-999)."
             },
             "children": {
