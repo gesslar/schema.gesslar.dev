@@ -24,15 +24,7 @@
       },
       "required": [
         "type"
-      ],
-      "not": {
-        "properties": {
-          "required": {}
-        },
-        "required": [
-          "required"
-        ]
-      }
+      ]
     }
   },
   "oneOf": [
