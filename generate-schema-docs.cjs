@@ -4,7 +4,7 @@ const path = require('path');
 // Function to generate markdown from a JSON schema
 function generateSchemaMarkdown(schemaPath, schemaData, sidebarPosition) {
   const fileName = path.basename(schemaPath);
-  const schemaUrl = schemaData.$id || `https://schema.gesslar.dev/${schemaPath.replace('../src/', '')}`;
+  const schemaUrl = schemaData.$id || `https://schema.gesslar.dev/${schemaPath.replace(/^\.?\/?static\/schemas\//, '')}`;
 
   let markdown = `---
 sidebar_position: ${sidebarPosition}
@@ -77,7 +77,7 @@ ${JSON.stringify(schemaData, null, 2)}
 function generateXsdMarkdown(xsdPath, sidebarPosition) {
   const fileName = path.basename(xsdPath);
   const xsdContent = fs.readFileSync(xsdPath, 'utf8');
-  const schemaUrl = `https://schema.gesslar.dev/${xsdPath.replace(/^\.\/static\//, '')}`;
+  const schemaUrl = `https://schema.gesslar.dev/${xsdPath.replace(/^\.?\/?static\/schemas\//, '')}`;
 
   let markdown = `---
 sidebar_position: ${sidebarPosition}
