@@ -213,7 +213,7 @@ function discoverSchemaDirectories() {
 
   categoryDirs.forEach(category => {
     const categoryPath = path.join(schemasRoot, category);
-    
+
     // Find version directories (e.g., v1, v1.001)
     const versionDirs = fs.readdirSync(categoryPath, { withFileTypes: true })
       .filter(dirent => dirent.isDirectory())
@@ -223,7 +223,7 @@ function discoverSchemaDirectories() {
     versionDirs.forEach(version => {
       const srcDir = `./static/schemas/${category}/${version}`;
       const docsDir = `./docs/${category}`;
-      
+
       categories.push({
         name: category,
         version: version,
