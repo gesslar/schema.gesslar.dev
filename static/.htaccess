@@ -3,3 +3,5 @@ RewriteEngine On
 # Serve schema files from /schemas/... when requested at /muddler/v1/... or /bedoc/v1/...
 RewriteRule ^muddler/v1/(.*)$ schemas/muddler/v1/$1 [L]
 RewriteRule ^bedoc/v1/(.*)$ schemas/bedoc/v1/$1 [L]
+RewriteRule ^mudlet-mpackage/v1/(.*)$ schemas/mudlet-mpackage/v1/$1 [L]
+RewriteRule ^chrome-manifest/v1/(.*)$ schemas/chrome-manifest/v1/$1 [L]
