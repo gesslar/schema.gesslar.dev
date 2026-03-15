@@ -48,6 +48,10 @@ const config = {
     ],
   ],
 
+  stylesheets: [
+    'https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.36/dist/codicon.css',
+  ],
+
   themeConfig: {
     // Replace with your project's social card
     image: 'img/social.png',

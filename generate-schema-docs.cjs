@@ -34,7 +34,7 @@ ${schemaData.description || ''}
 
     Object.entries(schemaData.properties).forEach(([key, prop]) => {
       const type = prop.type || prop.const || (prop.$ref ? 'reference' : 'object');
-      const required = schemaData.required?.includes(key) ? '✓' : '';
+      const required = schemaData.required?.includes(key) ? '<i class="codicon codicon-check"></i>' : '';
       const description = prop.description || '';
       const defaultVal = prop.default !== undefined ? ` (default: ${JSON.stringify(prop.default)})` : '';
       markdown += `| \`${key}\` | ${type} | ${required} | ${description}${defaultVal} |\n`;
