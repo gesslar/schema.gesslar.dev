@@ -5,7 +5,7 @@
   "license": "Unlicense",
   "scripts": {
     "docusaurus": "docusaurus",
-    "generate-docs": "node generate-schema-docs.js",
+    "generate-docs": "node generate-schema-docs.cjs",
     "watch-schemas": "node watch-schemas.js",
     "prestart": "npm run generate-docs",
     "start": "docusaurus start",
@@ -18,24 +18,25 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "update": "npx npm-check-updates -u && npm install"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^2.0.0",
-    "prism-react-renderer": "^2.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@mdx-js/react": "^3.1.1",
+    "clsx": "^2.1.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
-    "@gesslar/uglier": "^1.4.1",
-    "eslint": "^10.0.0",
-    "typescript": "~5.6.2"
+    "@gesslar/uglier": "^2.2.0",
+    "eslint": "^10.0.3",
+    "typescript": "~5.9.3"
   },
   "browserslist": {
     "production": [

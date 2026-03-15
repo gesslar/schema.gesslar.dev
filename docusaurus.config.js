@@ -82,6 +82,12 @@ const config = {
           label: 'mpackage',
         },
         {
+          type: 'docSidebar',
+          sidebarId: 'chromeManifest',
+          position: 'left',
+          label: 'Chrome Manifest',
+        },
+        {
           href: 'https://github.com/gesslar/schema.gesslar.dev',
           label: 'GitHub',
           position: 'right',
