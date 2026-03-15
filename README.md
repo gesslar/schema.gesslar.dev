@@ -51,7 +51,7 @@ npm run build
    },
    ```
 
-4. Documentation pages are automatically generated when you run `npm start` or `npm run build`
+4. Documentation pages and `.htaccess` rewrite rules are automatically generated when you run `npm start` or `npm run build`
 5. To manually regenerate documentation:
 
    ```bash
