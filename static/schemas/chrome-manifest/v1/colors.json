@@ -114,7 +114,7 @@
             "toolbar_button_icon": {
               "$ref": "#/definitions/color_rgb"
             },
-            "toolbar_button_text": {
+            "toolbar_text": {
               "$ref": "#/definitions/color_rgb"
             },
             "ntp_background": {
