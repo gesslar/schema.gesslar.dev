@@ -87,6 +87,12 @@
             "button_background": {
               "$ref": "#/definitions/color_rgb"
             },
+            "omnibox_background": {
+              "$ref": "#/definitions/color_rgb"
+            },
+            "omnibox_text": {
+              "$ref": "#/definitions/color_rgb"
+            },
             "tab_background_text": {
               "$ref": "#/definitions/color_rgb"
             },
@@ -106,6 +112,9 @@
               "$ref": "#/definitions/color_rgba"
             },
             "toolbar_button_icon": {
+              "$ref": "#/definitions/color_rgb"
+            },
+            "toolbar_button_text": {
               "$ref": "#/definitions/color_rgb"
             },
             "ntp_background": {
