@@ -6,11 +6,11 @@ const { spawn } = require('child_process');
 
 // Discover all schema directories automatically
 function discoverSchemaDirectories() {
-  const schemasRoot = path.join(__dirname, 'static/schemas');
+  const schemasRoot = path.join(__dirname, 'public/schemas');
   const dirs = [];
 
   if (!fs.existsSync(schemasRoot)) {
-    console.warn('Warning: static/schemas directory not found');
+    console.warn('Warning: public/schemas directory not found');
     return dirs;
   }
 
@@ -21,7 +21,7 @@ function discoverSchemaDirectories() {
 
   categoryDirs.forEach(category => {
     const categoryPath = path.join(schemasRoot, category);
-    
+
     // Find version directories (e.g., v1, v1.001)
     const versionDirs = fs.readdirSync(categoryPath, { withFileTypes: true })
       .filter(dirent => dirent.isDirectory())
@@ -29,7 +29,7 @@ function discoverSchemaDirectories() {
 
     // Add each version directory to the list
     versionDirs.forEach(version => {
-      dirs.push(`./static/schemas/${category}/${version}`);
+      dirs.push(`./public/schemas/${category}/${version}`);
     });
   });
 

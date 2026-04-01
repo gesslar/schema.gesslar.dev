@@ -1,16 +1,33 @@
 const fs = require('fs');
 const path = require('path');
 
+// Convert Docusaurus <Tabs>/<TabItem> to plain markdown sections
+function convertDocusaurusTabsToMarkdown(content) {
+  // Remove <Tabs ...> and </Tabs> wrapper
+  content = content.replace(/<Tabs[\s\S]*?>/g, '');
+  content = content.replace(/<\/Tabs>/g, '');
+
+  // Convert <TabItem value="xxx"> to ### heading, extract label from value
+  content = content.replace(/<TabItem\s+value="([^"]+)">/g, (match, value) => {
+    return `### ${value}`;
+  });
+
+  // Remove </TabItem>
+  content = content.replace(/<\/TabItem>/g, '');
+
+  return content;
+}
+
 // Function to generate markdown from a JSON schema
-function generateSchemaMarkdown(schemaPath, schemaData, sidebarPosition) {
+function generateSchemaMarkdown(schemaPath, schemaData, order) {
   const fileName = path.basename(schemaPath);
-  const schemaUrl = schemaData.$id || `https://schema.gesslar.dev/${schemaPath.replace(/^\.?\/?static\/schemas\//, '')}`;
+  const schemaUrl = schemaData.$id || `https://schema.gesslar.dev/${schemaPath.replace(/^\.?\/?public\/schemas\//, '')}`;
 
   let markdown = `---
-sidebar_position: ${sidebarPosition}
+title: "${fileName}"
+sidebar:
+  order: ${order}
 ---
-
-# ${fileName}
 
 ${schemaData.description || ''}
 
@@ -74,16 +91,16 @@ ${JSON.stringify(schemaData, null, 2)}
 }
 
 // Function to generate markdown from an XSD schema
-function generateXsdMarkdown(xsdPath, sidebarPosition) {
+function generateXsdMarkdown(xsdPath, order) {
   const fileName = path.basename(xsdPath);
   const xsdContent = fs.readFileSync(xsdPath, 'utf8');
-  const schemaUrl = `https://schema.gesslar.dev/${xsdPath.replace(/^\.?\/?static\/schemas\//, '')}`;
+  const schemaUrl = `https://schema.gesslar.dev/${xsdPath.replace(/^\.?\/?public\/schemas\//, '')}`;
 
   let markdown = `---
-sidebar_position: ${sidebarPosition}
+title: "${fileName}"
+sidebar:
+  order: ${order}
 ---
-
-# ${fileName}
 
 XML Schema Definition (XSD) for this schema.
 
@@ -122,12 +139,12 @@ function processSchemaDirectory(category, srcDir, docsDir) {
   }
 
   // Create category index
+  const title = category.charAt(0).toUpperCase() + category.slice(1);
   let indexMarkdown = `---
-sidebar_position: 1
-slug: /${category}
+title: "${title} Schemas"
+sidebar:
+  order: 1
 ---
-
-# ${category.charAt(0).toUpperCase() + category.slice(1)} Schemas
 
 ${schemaTypeText} for ${category}.
 
@@ -138,30 +155,45 @@ ${schemaTypeText} for ${category}.
   // List JSON schemas
   schemaFiles.forEach(file => {
     const baseName = path.basename(file, '.json');
-    indexMarkdown += `- [${baseName}](${baseName}.md)\n`;
+    indexMarkdown += `- [${baseName}](${baseName}/)\n`;
   });
 
   // List XSD files
   xsdFiles.forEach(file => {
     const baseName = path.basename(file, '.xsd');
-    indexMarkdown += `- [${baseName}](${baseName}.md)\n`;
+    indexMarkdown += `- [${baseName}](${baseName}/)\n`;
   });
 
   // List markdown files
   mdFiles.forEach(file => {
     const baseName = path.basename(file, '.md');
     if (baseName !== 'index' && baseName !== 'readme') {
-      indexMarkdown += `- [${baseName}](${file})\n`;
+      indexMarkdown += `- [${baseName}](${baseName}/)\n`;
     }
   });
 
   fs.writeFileSync(path.join(docsDir, 'index.md'), indexMarkdown);
 
-  // Copy .md files directly
+  // Copy .md files, converting Docusaurus frontmatter to Starlight format
   mdFiles.forEach(file => {
     const srcPath = path.join(srcDir, file);
     const destPath = path.join(docsDir, file);
-    fs.copyFileSync(srcPath, destPath);
+    let content = fs.readFileSync(srcPath, 'utf8');
+
+    // Convert sidebar_position to Starlight's sidebar.order
+    content = content.replace(
+      /^(---\s*\n[\s\S]*?)sidebar_position:\s*(\d+)([\s\S]*?---)/m,
+      (match, before, pos, after) => {
+        const cleaned = before.replace(/\n\s*\n/g, '\n');
+        return `${cleaned}sidebar:\n  order: ${pos}${after}`;
+      }
+    );
+
+    // Strip Docusaurus MDX imports and convert Tabs to Starlight tabs
+    content = content.replace(/^import\s+.*from\s+['"]@theme\/.*['"];?\s*\n/gm, '');
+    content = convertDocusaurusTabsToMarkdown(content);
+
+    fs.writeFileSync(destPath, content);
     console.log(`Copied ${file} to ${path.relative(__dirname, destPath)}`);
   });
 
@@ -198,11 +230,11 @@ ${schemaTypeText} for ${category}.
 
 // Discover all schema directories automatically
 function discoverSchemaDirectories() {
-  const schemasRoot = path.join(__dirname, 'static/schemas');
+  const schemasRoot = path.join(__dirname, 'public/schemas');
   const categories = [];
 
   if (!fs.existsSync(schemasRoot)) {
-    console.warn('Warning: static/schemas directory not found');
+    console.warn('Warning: public/schemas directory not found');
     return categories;
   }
 
@@ -221,8 +253,8 @@ function discoverSchemaDirectories() {
 
     // For each version directory, add to categories
     versionDirs.forEach(version => {
-      const srcDir = `./static/schemas/${category}/${version}`;
-      const docsDir = `./docs/${category}`;
+      const srcDir = `./public/schemas/${category}/${version}`;
+      const docsDir = `./src/content/docs/${category}`;
 
       categories.push({
         name: category,
@@ -255,7 +287,7 @@ function cleanDirectory(dir) {
 
 // Generate .htaccess with rewrite rules for all schema categories
 function generateHtaccess(categories) {
-  const htaccessPath = path.join(__dirname, 'static/.htaccess');
+  const htaccessPath = path.join(__dirname, 'public/.htaccess');
   const rules = categories.map(({ name, version }) =>
     `RewriteRule ^${name}/${version}/(.*)$ schemas/${name}/${version}/$1 [L]`
   );

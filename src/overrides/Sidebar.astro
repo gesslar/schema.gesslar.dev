@@ -1,0 +1,92 @@
+---
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter'
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro'
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro'
+
+const { sidebar } = Astro.locals.starlightRoute
+const currentPath = Astro.url.pathname
+
+// Each top-level sidebar group is a schema category (BeDoc, Muddler, etc.)
+// Find which one we're currently in by checking the current path
+const specs = sidebar.filter((entry) => entry.type === 'group')
+const activeSpec = specs.find((spec) => {
+  const walk = (entries: typeof sidebar): boolean =>
+    entries.some((e) =>
+      e.type === 'link' ? e.isCurrent : walk(e.entries)
+    )
+  return walk(spec.entries)
+})
+
+// Only show the active spec's entries in the sidebar
+const filtered = activeSpec ? activeSpec.entries : []
+
+// Build dropdown options: label + first link href for each spec
+const options = specs.map((spec) => {
+  const findFirst = (entries: typeof sidebar): string | null => {
+    for (const e of entries) {
+      if (e.type === 'link') return e.href
+      const found = findFirst(e.entries)
+      if (found) return found
+    }
+    return null
+  }
+  return {
+    label: spec.label,
+    href: findFirst(spec.entries) || '/',
+    active: spec === activeSpec,
+  }
+})
+---
+
+<nav class="spec-switcher">
+  <select
+    aria-label="Choose a schema"
+    data-spec-select
+  >
+    {!activeSpec && <option value="/" selected>Choose a schema…</option>}
+    {options.map((opt) => (
+      <option value={opt.href} selected={opt.active}>
+        {opt.label}
+      </option>
+    ))}
+  </select>
+</nav>
+
+<SidebarPersister>
+  <SidebarSublist sublist={filtered} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>
+
+<style>
+  .spec-switcher {
+    padding: 0.5rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    margin-bottom: 0.5rem;
+  }
+
+  .spec-switcher select {
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-gray-6);
+    color: var(--sl-color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .spec-switcher select:hover {
+    border-color: var(--sl-color-gray-3);
+  }
+</style>
+
+<script>
+  document.querySelector('[data-spec-select]')?.addEventListener('change', (e) => {
+    const target = e.target as HTMLSelectElement
+    if (target.value) window.location.href = target.value
+  })
+</script>
