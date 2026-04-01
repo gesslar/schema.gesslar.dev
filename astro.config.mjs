@@ -10,9 +10,6 @@ export default defineConfig({
         src: './src/assets/logo.svg',
       },
       favicon: '/img/favicon.ico',
-      social: {
-        github: 'https://github.com/gesslar/schema.gesslar.dev',
-      },
       customCss: [
         './src/styles/custom.css',
       ],

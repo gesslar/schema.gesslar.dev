@@ -21,10 +21,25 @@ if(existsSync(schemasRoot)) {
   }
 }
 
-const navLinks = [
-  {label: 'BeDoc', href: '/bedoc/'},
-  {label: 'Muddler', href: '/muddler/'},
-  {label: 'mpackage', href: '/mudlet-mpackage/'},
+const cards = [
+  {
+    title: 'BeDoc',
+    description: 'JSON schemas for bedoc action definitions',
+    href: '/bedoc/',
+    icon: 'codicon-file-code',
+  },
+  {
+    title: 'Muddler',
+    description: 'JSON schemas for Muddler project configuration',
+    href: '/muddler/',
+    icon: 'codicon-settings-gear',
+  },
+  {
+    title: 'mpackage',
+    description: 'XSD schemas for Mudlet .mpackage files',
+    href: '/mudlet-mpackage/',
+    icon: 'codicon-package',
+  },
 ]
 ---
 
@@ -40,68 +55,6 @@ const navLinks = [
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
 
-      .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 0.75rem 1.5rem;
-        background: rgba(4, 15, 18, 0.85);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(126, 245, 197, 0.1);
-      }
-
-      .navbar-brand {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: #dffcf0;
-        font-weight: 600;
-        font-size: 1rem;
-      }
-
-      .navbar-brand img {
-        height: 24px;
-        width: 24px;
-      }
-
-      .navbar-links {
-        display: flex;
-        gap: 1rem;
-        list-style: none;
-      }
-
-      .navbar-links a {
-        color: #b6e9db;
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: color 0.15s;
-      }
-
-      .navbar-links a:hover {
-        color: #6df7d5;
-      }
-
-      .navbar-spacer {
-        flex: 1;
-      }
-
-      .navbar-github {
-        color: #b6e9db;
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: color 0.15s;
-      }
-
-      .navbar-github:hover {
-        color: #6df7d5;
-      }
-
       .page {
         position: relative;
         min-height: 100vh;
@@ -112,12 +65,12 @@ const navLinks = [
           linear-gradient(140deg, #010a0a, #020f13 45%, #041a1f);
         color: #d9fff0;
         padding: 2.5rem 1.5rem;
-        padding-top: 4rem;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 1rem;
+        justify-content: flex-start;
+        padding-top: 12vh;
+        gap: 1.5rem;
         isolation: isolate;
       }
 
@@ -155,8 +108,7 @@ const navLinks = [
         z-index: 1;
         text-align: center;
         width: min(960px, 100%);
-        padding: 1rem 1rem 1.5rem;
-        margin-bottom: 1rem;
+        padding: 1rem 1rem 0.5rem;
       }
 
       .title-stack {
@@ -198,7 +150,7 @@ const navLinks = [
         z-index: 1;
         max-width: 800px;
         width: 100%;
-        padding: 1rem;
+        padding: 1.25rem 1.5rem;
         background: linear-gradient(135deg, rgba(6, 26, 26, 0.4), rgba(4, 18, 22, 0.5));
         outline: 1px solid rgba(126, 245, 197, 0.12);
         border-radius: 16px;
@@ -215,7 +167,7 @@ const navLinks = [
       }
 
       .about > p {
-        margin: 0 0 2rem;
+        margin: 0;
         font-size: 1.1rem;
         line-height: 1.7;
         color: #b9e8d6;
@@ -224,8 +176,9 @@ const navLinks = [
 
       .features {
         display: grid;
-        gap: 1.5rem;
+        gap: 1rem;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-top: 1.25rem;
       }
 
       .feature {
@@ -246,6 +199,85 @@ const navLinks = [
 
       .feature h4 { margin: 0 0 0.25rem; color: #cff7e8; font-size: 1rem; }
       .feature p { margin: 0; font-size: 0.9rem; line-height: 1.15; color: #9bd7c1; opacity: 0.85; }
+
+      .cards {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        width: 100%;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1.25rem;
+        background: linear-gradient(135deg, rgba(6, 26, 26, 0.5), rgba(4, 18, 22, 0.6));
+        outline: 1px solid rgba(126, 245, 197, 0.12);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(126, 245, 197, 0.06) inset;
+        text-decoration: none;
+        color: inherit;
+        transition: outline-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      }
+
+      .card:hover {
+        outline-color: rgba(126, 245, 197, 0.35);
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.4),
+          0 0 20px rgba(126, 245, 197, 0.1),
+          0 0 0 1px rgba(126, 245, 197, 0.15) inset;
+        transform: translateY(-2px);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .card-icon {
+        font-size: 1.25rem;
+        color: #2cbda2;
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #dffcf0;
+        margin: 0;
+      }
+
+      .card-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #9bd7c1;
+        opacity: 0.85;
+        margin: 0;
+        flex: 1;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #2cbda2;
+        margin-top: 0.5rem;
+        transition: gap 0.2s;
+      }
+
+      .card:hover .card-link {
+        color: #6df7d5;
+        gap: 0.65rem;
+      }
 
       @keyframes fadeGlitch {
         0% { opacity: 0; }
@@ -269,37 +301,21 @@ const navLinks = [
       }
 
       @media screen and (max-width: 996px) {
-        .page { padding: 0; padding-top: 4rem; }
-        .hero { padding: 0; margin-bottom: 0; }
-        .about { padding: 1rem; }
-        .features { gap: 1rem; }
+        .page { padding: 1.5rem; }
       }
 
       @media screen and (max-width: 640px) {
-        .page { padding: 1rem; padding-top: 4rem; }
+        .page { padding: 1rem; }
         .title { font-size: clamp(2rem, 3vw + 1rem, 3rem); }
         .about { padding: 1rem; }
         .about h3 { line-height: 1.1rem; font-size: 1.1rem; }
         .about > p { line-height: 1.2rem; font-size: 1rem; }
-        .features { grid-template-columns: 1.1fr; gap: 0.75rem; }
+        .features { grid-template-columns: 1fr; gap: 0.75rem; }
+        .cards { grid-template-columns: 1fr; }
       }
     </style>
   </head>
   <body>
-    <nav class="navbar">
-      <a class="navbar-brand" href="/">
-        <img src="/img/logo.svg" alt="schema.gesslar.dev" />
-        schema.gesslar.dev
-      </a>
-      <ul class="navbar-links">
-        {navLinks.map(link => (
-          <li><a href={link.href}>{link.label}</a></li>
-        ))}
-      </ul>
-      <div class="navbar-spacer"></div>
-      <a class="navbar-github" href="https://github.com/gesslar/schema.gesslar.dev">GitHub</a>
-    </nav>
-
     <main class="page">
       <div class="matrix-layer" aria-hidden="true" id="matrix"></div>
 
@@ -341,6 +357,19 @@ const navLinks = [
           </div>
         </div>
       </section>
+
+      <div class="cards">
+        {cards.map(card => (
+          <a class="card" href={card.href}>
+            <div class="card-header">
+              <i class={`codicon ${card.icon} card-icon`}></i>
+              <h2 class="card-title">{card.title}</h2>
+            </div>
+            <p class="card-description">{card.description}</p>
+            <span class="card-link">Explore schema <i class="codicon codicon-arrow-right" /></span>
+          </a>
+        ))}
+      </div>
     </main>
 
     <script is:inline id="schema-data" type="application/json" set:html={JSON.stringify(schemaStrings)} />
