@@ -80,7 +80,7 @@ JSON schemas for the bedoc documentation system.
 
 ## License
 
-`schema.gesslar.dev` is released into the public domain under the [Unlicense](LICENSE.txt).
+`schema.gesslar.dev` is released under the [0BSD](LICENSE.txt).
 
 This package includes or depends on third-party components under their own
 licenses:

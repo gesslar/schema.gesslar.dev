@@ -2,7 +2,7 @@
   "name": "schema.gesslar.dev",
   "version": "1.0.0",
   "private": false,
-  "license": "Unlicense",
+  "license": "0BSD",
   "type": "module",
   "scripts": {
     "generate-docs": "node generate-schema-docs.cjs",
