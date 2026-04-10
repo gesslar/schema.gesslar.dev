@@ -15,18 +15,15 @@
     "update": "npx npm-check-updates -u && npm install"
   },
   "dependencies": {
-    "@astrojs/starlight": "~0.32.6",
-    "astro": "^5.7.0",
-    "sharp": "^0.33.5"
+    "@astrojs/starlight": "^0.38.3",
+    "astro": "^6.1.5",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
-    "@gesslar/uglier": "^2.2.0",
-    "eslint": "^10.0.3"
-  },
-  "overrides": {
-    "@astrojs/sitemap": "3.2.1"
+    "@gesslar/uglier": "^2.4.0",
+    "eslint": "^10.2.0"
   },
   "engines": {
-    "node": ">=20.0"
+    "node": ">=24.11.0"
   }
 }

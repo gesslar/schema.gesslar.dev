@@ -78,17 +78,15 @@ JSON schemas for the muddler build system for Mudlet packages.
 
 JSON schemas for the bedoc documentation system.
 
-schema.gesslar.dev is released into the public domain under the [Unlicense](UNLICENSE.txt).
+## License
+
+`schema.gesslar.dev` is released into the public domain under the [Unlicense](LICENSE.txt).
 
 This package includes or depends on third-party components under their own
 licenses:
 
 | Dependency | License |
 | --- | --- |
-| [@docusaurus/core](https://github.com/facebook/docusaurus) | MIT |
-| [@docusaurus/preset-classic](https://github.com/facebook/docusaurus) | MIT |
-| [@mdx-js/react](https://github.com/mdx-js/mdx) | MIT |
-| [clsx](https://github.com/lukeed/clsx) | MIT |
-| [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) | MIT |
-| [react](https://github.com/facebook/react) | MIT |
-| [react-dom](https://github.com/facebook/react) | MIT |
+| [@astrojs/starlight](https://github.com/withastro/starlight) | MIT |
+| [astro](https://github.com/withastro/astro) | MIT |
+| [sharp](https://github.com/lovell/sharp) | Apache-2.0 |
